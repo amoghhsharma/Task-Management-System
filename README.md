@@ -1,6 +1,4 @@
-# super-duper-chainsaw
-creating my first coding project
+# Task-Management-Program
 
-- Actually a file compression tool;
-- Well ill try atleast
-  
+- Basic usage of Pointers and structs.
+- An Amogh Sharma Production (xd)
