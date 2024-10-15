@@ -11,8 +11,8 @@ struct TaskInfo
 };
 
 void addTask(TaskInfo *task, int taskcount);
-void deleteTask();
-void modifyTask();
+void deleteTask(TaskInfo *task, int taskcount);
+void modifyTask(TaskInfo *task, int taskcount);
 void viewAllTasks(TaskInfo *task, int taskcount);
 void mainMenu();
 
@@ -38,10 +38,17 @@ int main(){
                         taskcount++;  // Increment task count after adding
                     break;  
                     } 
-                case 5:
+                case 2:
+                    deleteTask(task, taskcount);
+                    taskcount--;
+                    break;
+                case 3:
+                    modifyTask(task, taskcount);
+                    break;
+                case 4:
                     viewAllTasks(task, taskcount);  // View all tasks
                     break;
-                case 6:
+                case 5:
                     printf("\nExiting the program...\n");
                     break;
                 default:
@@ -58,9 +65,8 @@ void mainMenu(){
         printf("1. Add Task\n");
         printf("2. Delete Task\n");
         printf("3. Update Task\n");
-        printf("4. Mark Task as Completed\n");
-        printf("5. List Tasks\n");
-        printf("6. Exit\n");
+        printf("4. List Tasks\n");
+        printf("5. Exit\n");
         printf("Enter your choice: ");
 }
 
@@ -98,4 +104,37 @@ if (taskcount == 0) {
             printf("Status: %s\n", task[i].status ? "Completed" : "Incomplete");
         }
     }
+}
+
+void deleteTask(TaskInfo task[], int taskcount){
+    int taskNum;
+    
+    printf("Enter the id of the task you want to delete: ");
+    scanf("%d", &taskNum);
+
+    int found = 0;
+    for (int i = 0; i < taskcount; i++) {
+        if (task[i].id == taskNum) {
+            task[i].id = -1;  
+            strcpy(task[i].taskName, "");
+            strcpy(task[i].dueDate, "");
+            task[i].status = -1;  
+            printf("Task %d has been deleted.\n", taskNum);
+            found = 1;
+            break;
+        }
+    }
+    
+    if (!found) {
+        printf("Task with ID %d not found.\n", taskNum);
+    }
+    
+}
+void modifyTask(TaskInfo *task, int taskcount){
+
+    deleteTask(task, taskcount);
+    addTask(task, taskcount);
+
+    printf("The task has been modified!\n");
+
 }
